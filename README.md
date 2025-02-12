@@ -23,7 +23,6 @@ module "basic_folder_structure" {
   source = "devoteamgcloud/es-tf-module-folder-structure"
   
   parent_id = "organizations/123456789"
-  deletion_protection = true
   
   folder_structure = {
   "ctl" : {
@@ -48,33 +47,7 @@ Functional examples are included in the
 [examples](./examples/) directory.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Inputs
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| all\_folder\_admins | List of IAM-style members that will get the extended permissions across all the folders. | `list(string)` | `[]` | no |
-| deletion\_protection | Prevent Terraform from destroying or recreating the folder. | `bool` | `true` | no |
-| folder\_admin\_roles | List of roles that will be applied to a folder if roles are not explictly specified in per\_folder\_admins | `list(string)` | <pre>[<br>  "roles/owner",<br>  "roles/resourcemanager.folderViewer",<br>  "roles/resourcemanager.projectCreator",<br>  "roles/compute.networkAdmin"<br>]</pre> | no |
-| names | Folder names. | `list(string)` | `[]` | no |
-| parent | The resource name of the parent Folder or Organization. Must be of the form folders/folder\_id or organizations/org\_id | `string` | n/a | yes |
-| per\_folder\_admins | IAM-style roles per members per folder who will get extended permissions. If roles are not provided for a folder/member combination, the list provided as `folder_admin_roles` will be applied as default. | <pre>map(object({<br>    members = list(string)<br>    roles   = optional(list(string))<br>  }))</pre> | `{}` | no |
-| prefix | Optional prefix to enforce uniqueness of folder names. | `string` | `""` | no |
-| set\_roles | Enable setting roles via the folder admin variables. | `bool` | `false` | no |
-
-## Outputs
-
-| Name | Description |
-|------|-------------|
-| folder | Folder resource (for single use). |
-| folders | Folder resources as list. |
-| folders\_map | Folder resources by name. |
-| id | Folder id (for single use). |
-| ids | Folder ids. |
-| ids\_list | List of folder ids. |
-| name | Folder name (for single use). |
-| names | Folder names. |
-| names\_list | List of folder names. |
-| per\_folder\_admins | IAM-style members per folder who will get extended permissions. |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
@@ -119,3 +92,47 @@ information on contributing to this module.
 [project-factory-module]: https://registry.terraform.io/modules/terraform-google-modules/project-factory/google
 [terraform-provider-gcp]: https://www.terraform.io/docs/providers/google/index.html
 [terraform]: https://www.terraform.io/downloads.html
+<!-- BEGIN_TF_DOCS -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13 |
+| <a name="requirement_google"></a> [google](#requirement\_google) | >= 4, < 6.0 |
+
+## Providers
+
+No providers.
+
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_folders"></a> [folders](#module\_folders) | terraform-google-modules/folders/google | ~> 4.0 |
+| <a name="module_sub_folders1"></a> [sub\_folders1](#module\_sub\_folders1) | terraform-google-modules/folders/google | ~> 4.0 |
+| <a name="module_sub_folders2"></a> [sub\_folders2](#module\_sub\_folders2) | terraform-google-modules/folders/google | ~> 4.0 |
+| <a name="module_sub_folders3"></a> [sub\_folders3](#module\_sub\_folders3) | terraform-google-modules/folders/google | ~> 4.0 |
+| <a name="module_sub_folders4"></a> [sub\_folders4](#module\_sub\_folders4) | terraform-google-modules/folders/google | ~> 4.0 |
+
+## Resources
+
+No resources.
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_deletion_protection"></a> [deletion\_protection](#input\_deletion\_protection) | Protection against deletion for level 3 and 4 folders | `bool` | `false` | no |
+| <a name="input_folder_structure"></a> [folder\_structure](#input\_folder\_structure) | Nested folder structure up to 4 levels of depth | `map(map(map(map(list(string)))))` | n/a | yes |
+| <a name="input_parent_id"></a> [parent\_id](#input\_parent\_id) | ID of the parent where the folders will be created (organizations/123456 or folders/123456) | `string` | n/a | yes |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| <a name="output_folder_ids"></a> [folder\_ids](#output\_folder\_ids) | IDs of first level folders |
+| <a name="output_subfolder1_ids"></a> [subfolder1\_ids](#output\_subfolder1\_ids) | IDs of second level folders |
+| <a name="output_subfolder2_ids"></a> [subfolder2\_ids](#output\_subfolder2\_ids) | IDs of third level folders |
+| <a name="output_subfolder3_ids"></a> [subfolder3\_ids](#output\_subfolder3\_ids) | IDs of fourth level folders |
+| <a name="output_subfolder4_ids"></a> [subfolder4\_ids](#output\_subfolder4\_ids) | IDs of fifth level folders |
+<!-- END_TF_DOCS -->

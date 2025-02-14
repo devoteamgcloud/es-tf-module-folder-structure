@@ -5,7 +5,7 @@ variable "parent_id" {
 
 variable "folder_structure" {
   description = "Nested folder structure up to 4 levels of depth"
-  type        = map(map(map(map(list(string)))))
+  type        = map(any)
 }
 
 variable "deletion_protection" {

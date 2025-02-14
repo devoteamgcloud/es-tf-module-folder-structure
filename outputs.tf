@@ -23,7 +23,7 @@ output "subfolder4_ids" {
   value       = { for k, v in module.sub_folders4 : k => v.id }
 }
 
-output "folder_ids" {
+output "folder_structure_ids" {
   value = merge(
     { for folder_name in keys(var.folder_structure) : folder_name => module.folders[folder_name].ids[folder_name] },
     { for path in local.sub_folders1_var : replace(path, "/=[0-9]+>/", "/") => module.sub_folders1[path].ids[element(split("=1>", path), 1)] },
